@@ -38,7 +38,7 @@ if __name__ == "__main__":
     )
 
     total_length = ((train.cardinality() + valid.cardinality()) * batch_size).numpy()
-    if total_length > 10_000:
+    if total_length > 20_000:
         print(f"Dataset size larger than 10,000. Got {total_length} examples")
         sys.exit()
 
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     # print(f"loss {loss_0}, acc {acc_0}")
 
     checkpoint = tf.keras.callbacks.ModelCheckpoint(
-        "best_model.weights.h5",
+        "best_model_second_iteration.weights.h5",
         monitor="val_accuracy",
         mode="max",
         save_best_only=True,
@@ -93,7 +93,7 @@ if __name__ == "__main__":
         callbacks=[checkpoint],
     )
 
-    model.load_weights("best_model.weights.h5")
+    model.load_weights("best_model_second_iteration.weights.h5")
 
     loss, acc = model.evaluate(valid)
     print(f"final loss {loss}, final acc {acc}")
